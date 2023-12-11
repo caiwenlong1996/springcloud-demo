@@ -1,0 +1,26 @@
+server:
+  port: 9001
+spring:
+  application:
+    name: demo-consul-consumer
+  cloud:
+    #采用 spring cloud consul注册
+    consul:
+      discovery:
+        service-name: ${spring.application.name}
+        instance-id: ${spring.application.name}:${spring.cloud.client.ip-address}:${server.port}
+        prefer-ip-address: true
+        health-check-path: /actuator/health
+        health-check-interval: 10s
+        query-passing: true
+dubbo:
+  registry:
+    #挂载到springcloud注册
+    address: spring-cloud://localhost
+  protocol:
+    # -1 表示从从 20880 开始,有冲突递增，其他服务不需要关心所以-1即可
+    port: -1
+    name: dubbo
+  consumer:
+    ## 不检查provider是否在注册中心有，服务没有的话消费者无法启动。
+    check: false
