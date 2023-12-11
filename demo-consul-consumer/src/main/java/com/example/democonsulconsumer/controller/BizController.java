@@ -18,6 +18,6 @@ public class BizController {
     @GetMapping("doSomeThing")
     public void doSomeThing(){
         String result = bizService.doSomeThing();
-        logger.info("(dubbo)result that you get from producer is: "+result);
+        logger.info("(dubbo consul)result that you get from producer is: "+result);
     }
 }
